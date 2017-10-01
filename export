@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+rm -rf ./conf
+docker run --rm \
+  --mount type=bind,source=$(pwd)/,destination=/export \
+  httpd cp -R /usr/local/apache2/conf/ /export/
