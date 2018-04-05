@@ -1,9 +1,18 @@
 #!/usr/bin/env bash
 
+docker network create --driver bridge reverse-proxy-net
+
 docker run -dit \
---mount type=bind,source=$(pwd)/conf,destination=/usr/local/apache2/conf \
---mount type=bind,source=$(pwd)/htdocs,destination=/usr/local/apache2/htdocs \
- --name apache2 -p8080:80 httpd
+  --mount type=bind,source=$(pwd)/conf,destination=/usr/local/apache2/conf \
+  --mount type=bind,source=$(pwd)/cert,destination=/usr/local/apache2/cert \
+  --network reverse-proxy-net \
+  -p8080:80 -p443:443 \
+  --name reverseproxy httpd
+
+ docker run -dit \
+  --mount type=bind,source=$(pwd)/htdocs,destination=/usr/local/apache2/htdocs \
+  --network reverse-proxy-net \
+  --name httpd httpd
 
 # To expose port to MacOS:
 # -p 80:80

@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+# From:
+#   https://stackoverflow.com/questions/14267010/how-to-create-self-signed-ssl-certificate-for-test-purposes
+
+openssl genrsa 2048 > "$(pwd)/private.key"
+openssl req -x509 -days 1000 -new -key "$(pwd)/private.key" -out "$(pwd)/public.cert"

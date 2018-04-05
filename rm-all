@@ -1,5 +1,11 @@
 #!/usr/bin/env bash
 
+# Remove all containers
 docker stop $(docker ps -q)
 docker rm $(docker ps -aq)
+
+# Remove all volumes
 docker volume rm $(docker volume ls -qf dangling=true)
+
+# Remove user-defined network
+docker network prune -f
