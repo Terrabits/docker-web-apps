@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 
-docker run -dit --mount type=bind,source=$(pwd)/conf,destination=/usr/local/apache2/conf --name apache2 httpd
+docker run -dit \
+--mount type=bind,source=$(pwd)/conf,destination=/usr/local/apache2/conf \
+--mount type=bind,source=$(pwd)/htdocs,destination=/usr/local/apache2/htdocs \
+ --name apache2 -p8080:80 httpd
 
 # To expose port to MacOS:
 # -p 80:80
