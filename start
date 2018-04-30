@@ -13,6 +13,3 @@ docker run -dit \
   --mount type=bind,source=$(pwd)/htdocs,destination=/usr/local/apache2/htdocs \
   --network reverse-proxy-net \
   --name httpd httpd
-
-# To expose port to MacOS:
-# -p 80:80
