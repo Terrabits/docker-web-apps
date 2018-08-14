@@ -3,6 +3,10 @@
 ROOT_DIR="$(cd $(dirname "${BASH_SOURCE[0]}") && pwd)"
 SITES_DIR="$ROOT_DIR/sites"
 
+# :Latest leads to problems on different systems
+# due to different versions
+HTTPD_VERSION="2.4.34"
+
 docker network create --driver bridge reverse-proxy-net
 
 # reverse proxy
@@ -12,16 +16,16 @@ docker run -dit \
   --mount type=bind,source=$SITES_DIR/default,destination=/usr/local/apache2/htdocs \
   --network reverse-proxy-net \
   -p80:80 -p443:443 \
-  --name reverseproxy httpd
+  --name reverseproxy httpd:$HTTPD_VERSION
 
 # site 1
  docker run -dit \
   --mount type=bind,source=$SITES_DIR/site1,destination=/usr/local/apache2/htdocs \
   --network reverse-proxy-net \
-  --name site1 httpd
+  --name site1 httpd:$HTTPD_VERSION
 
   # site 2
   docker run -dit \
    --mount type=bind,source=$SITES_DIR/site2,destination=/usr/local/apache2/htdocs \
    --network reverse-proxy-net \
-   --name site2 httpd
+   --name site2 httpd:$HTTPD_VERSION
