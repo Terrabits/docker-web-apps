@@ -9,8 +9,9 @@ docker network create --driver bridge reverse-proxy-net
 docker run -dit \
   --mount type=bind,source=$ROOT_DIR/conf,destination=/usr/local/apache2/conf \
   --mount type=bind,source=$ROOT_DIR/cert,destination=/usr/local/apache2/cert \
+  --mount type=bind,source=$SITES_DIR/default,destination=/usr/local/apache2/htdocs \
   --network reverse-proxy-net \
-  -p8080:80 -p443:443 \
+  -p80:80 -p443:443 \
   --name reverseproxy httpd
 
 # site 1
