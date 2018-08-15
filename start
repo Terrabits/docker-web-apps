@@ -20,9 +20,8 @@ docker run -dit \
 
 # site 1
  docker run -dit \
-  --mount type=bind,source=$SITES_DIR/site1,destination=/usr/local/apache2/htdocs \
   --network reverse-proxy-net \
-  --name site1 httpd:$HTTPD_VERSION
+  --name site1 site1
 
   # site 2
   docker run -dit \
