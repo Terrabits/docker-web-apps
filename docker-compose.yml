@@ -1,0 +1,20 @@
+version: '3'
+networks:
+    proxy:
+        driver: bridge
+services:
+    proxy:
+        build: proxy/
+        networks:
+            proxy:
+        ports:
+            - "80:80"
+            - "443:443"
+    site1:
+        build: sites/site1/
+        networks:
+            proxy:
+    site2:
+        build: sites/site2/
+        networks:
+            proxy:
