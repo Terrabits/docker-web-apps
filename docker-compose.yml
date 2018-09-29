@@ -6,15 +6,15 @@ services:
     proxy:
         build: proxy/
         networks:
-            proxy:
+            - proxy
         ports:
             - "80:80"
             - "443:443"
     site1:
         build: sites/site1/
         networks:
-            proxy:
+            - proxy
     site2:
         build: sites/site2/
         networks:
-            proxy:
+            - proxy
