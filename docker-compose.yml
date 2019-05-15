@@ -4,17 +4,20 @@ networks:
         driver: bridge
 services:
     proxy:
-        build: proxy/
+        build:   proxy/
+        restart: unless-stopped
         networks:
             - proxy
         ports:
             - "80:80"
             - "443:443"
     site1:
-        build: sites/site1/
+        build:   sites/site1/
+        restart: unless-stopped
         networks:
             - proxy
     site2:
-        build: sites/site2/
+        build:   sites/site2/
+        restart: unless-stopped
         networks:
             - proxy
